@@ -1,13 +1,10 @@
-#include "json.hpp"
+#include "json.hpp" //for loading json files
 #include <bits/stdc++.h>
 #include <openssl/sha.h> // OpenSSL for SHA hashing
 #include <filesystem>
 #include <fstream>
 
-
-
 #define int long long
-
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -47,7 +44,7 @@ Transaction COINBASE_TRANSACTION = {
     {{ 50, "" }}
 };
 
-string sha256(const string& data) {
+string sha256(string data) {
     unsigned char hash[SHA256_DIGEST_LENGTH];
     SHA256_CTX sha256;
     SHA256_Init(&sha256);
@@ -156,14 +153,12 @@ bool validate_transaction(const nlohmann::json& j){
         }
     }
    // cout << sum_vin << " " << sum_vout << "\n";
-    if(sum_vin > sum_vout && found)
+    if(sum_vin > sum_vout && found) 
         return true;
     else
         return false;
 
 }
-
-
 
 int32_t main(){
     for(const auto& entry : fs::directory_iterator(MEMPOOL_DIR)){
